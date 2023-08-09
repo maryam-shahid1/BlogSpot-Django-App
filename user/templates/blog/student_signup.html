@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href="/static/blog/css/style.css" rel="stylesheet">
+    <title>BlogSpot</title>
+</head>
+
+<body>
+    <div class="centered-div">
+        <h1 class="signup-text">Sign Up</h1>
+        <div class="form-input">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Sign Up</button>
+                <br>
+                <a class="auth-link" href="{% url 'student_login' %}">Already a User? Log In.</a>
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'blog/js/alert.js' %}"></script>
+</body>
+
+</html>

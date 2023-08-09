@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+    <strong>Success!</strong> {{message}}
+</div>
+{% endfor %}
+
+<div class="centered-div">
+    <h1>Edit Profile</h1>
+    <div class="form-input">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

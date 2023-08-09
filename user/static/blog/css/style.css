@@ -1,0 +1,110 @@
+h1 {
+  font-family: 'Poppins';
+  text-align: center;
+}
+
+body {
+  background-image: url('https://marketplace.canva.com/EAE6S6-pyBs/1/0/1600w/canva-pink-aesthetic-zoom-virtual-background-t5QXEzHaSdM.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+label {
+  font-family: 'Poppins';
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.centered-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}
+
+.login-text {
+  font-family: Poppins;
+  text-align: center;
+}
+
+.signup-text {
+  text-align: center;
+}
+
+.form-input {
+  background-color: #f4d5d5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.form-input form {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+}
+
+.form-input label {
+  font-weight: bold;
+}
+
+.form-input input[type="text"],
+.form-input input[type="email"],
+.form-input input[type="password"],
+.form-input textarea {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 90%;
+  margin-right: 20%;
+}
+
+.form-input button {
+  padding: 10px 20px;
+  background-color: #7e4b62;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-input button:hover {
+  background-color: #b86b8e;
+}
+
+.form-input ul {
+  margin: -20px
+}
+
+.auth-link {
+  color: #7e4b62;
+  text-decoration: none;
+  font-family: 'Poppins';
+}
+
+.auth-link:hover {
+  color: #b86b8e;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+}
+
+.welcome-text {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  bottom: 60px;
+  color: #7e4b62;
+}
