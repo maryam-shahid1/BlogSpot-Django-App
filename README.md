@@ -22,7 +22,7 @@ source envs/bin/activate
 
 ### 3. Clone git repository    
 ```sh
-cd myblog/
+cd BlogSpot/
 pip install -r requirements.txt
 ```  
 
