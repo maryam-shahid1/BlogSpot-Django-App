@@ -63,4 +63,3 @@ python manage.py sqlmigrate user 0001
 python manage.py migrate
 python manage.py runserver
 ```  
-# BlogSpot-Django-App
