@@ -5,13 +5,11 @@ This module contains forms for student authentication.
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import User
+from user.models import User
 
 
 class StudentSignUpForm(UserCreationForm):
-    """
-    A form for student registration.
-    """
+
     is_student = True
     is_organisation = False
 
@@ -28,9 +26,6 @@ class StudentSignUpForm(UserCreationForm):
     }
 
     def save(self, commit=True):
-        """
-        Save the student user instance.
-        """
         user = super(StudentSignUpForm, self).save(commit=True)
         user.is_student = True
         if commit:
@@ -39,8 +34,5 @@ class StudentSignUpForm(UserCreationForm):
 
 
 class StudentLoginForm(forms.Form):
-    """
-    A form for student login.
-    """
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)

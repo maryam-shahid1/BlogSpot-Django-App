@@ -10,9 +10,6 @@ from django.db import models
 class CustomUserManager(BaseUserManager):
 
     def create_user(self, email, password=None, **extra_fields):
-        """
-        Create and return a regular user with the given email and password.
-        """
         if not email:
             raise ValueError("Email value must be set!")
 
@@ -23,9 +20,6 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
-        """
-        Create and return a superuser with the given email and password.
-        """
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
 
@@ -38,9 +32,6 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    """
-    Custom user model.
-    """
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
