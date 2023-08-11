@@ -22,12 +22,12 @@ source envs/bin/activate
 
 ### 3. Clone git repository    
 ```sh
-git clone "https://github.com/maryam-shahid1/Django-Blog-App.git"
+git clone "https://github.com/maryam-shahid1/BlogSpot-Django-App.git"
 ```  
 
 ### 4. Install requirements  
 ```sh
-cd myblog/
+cd BlogSpot/
 pip install -r requirements.txt
 ```  
 
