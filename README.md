@@ -38,8 +38,7 @@ SECRET_KEY = "your_key"
 
 ### 6. Run the server  
 ```sh
-python manage.py makemigrations user
-python manage.py sqlmigrate user 0001
+python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```  
