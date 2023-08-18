@@ -1,0 +1,97 @@
+html,
+body {
+    overflow: hidden;
+}
+
+.bg-image-vertical {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: auto 100%;
+}
+
+@media (min-width: 1025px) {
+    .h-custom-2 {
+        height: 100%;
+    }
+}
+
+.form-input input[type="text"],
+.form-input input[type="email"],
+.form-input input[type="password"],
+.form-input textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.hover-container {
+    display: flex;
+}
+
+.hover-element {
+    position: relative;
+    color: rgb(172, 166, 166);
+    cursor: pointer;
+    margin-left: 270px;
+    transition: background-color 0.3s;
+}
+
+.hover-text {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    font-size: 9px;
+    transform: translateX(-50%);
+    padding: 5px;
+    background-color: rgba(230, 230, 230, 0.8);
+    color: rgb(0, 0, 0);
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.hover-element:hover .hover-text {
+    display: block;
+}
+
+.login-form {
+    width: 23rem;
+    margin-bottom: 200px;
+    margin-left: 130px;
+}
+
+.signup-form {
+    width: 23rem;
+    margin-bottom: 300px;
+    margin-left: 130px;
+}
+
+.info-icon {
+    display: inline;
+}
+
+#auth-title {
+    font-family: 'Righteous';
+    margin-top: 100px;
+}
+
+#auth-heading {
+    letter-spacing: 1px;
+}
+
+#sub-container {
+    margin-top: 20px;
+}
+
+#title-container {
+    margin-top: 50px;
+}
+
+#auth-image {
+    object-fit: cover;
+    object-position: left;
+}
