@@ -66,3 +66,4 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS(
             f"Superuser '{username}' with organization '{org}' created successfully."))
+
