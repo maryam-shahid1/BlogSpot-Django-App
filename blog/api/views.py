@@ -9,7 +9,8 @@ from rest_framework.permissions import (AllowAny, IsAdminUser, IsAuthenticated,
 from blog.api.permissions import IsAuthorOrReadOnly
 from blog.api.serializers import (PendingPostDetailSerializer,
                                   PendingPostListSerializer,
-                                  PostCreateUpdateSerializer,
+                                  PostCreateSerializer, PostUpdateSerializer,
+                                  DraftUpdateSerializer,
                                   PostDetailSerializer, PostListSerializer,
                                   DraftListSerializer)
 from blog.models import Post
@@ -26,17 +27,15 @@ class PostCreateAPIView(CreateAPIView):
     {
         "response_data": 201,
         data: {
-            "id": 13,
             "title": "new blog",
             "slug": "this-is-my-new",
             "content": "blogg",
             "category": "Technology",
-            "status": "Pending",
         }
     }
     """
     queryset = Post.objects.all()
-    serializer_class = PostCreateUpdateSerializer
+    serializer_class = PostCreateSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
@@ -128,12 +127,11 @@ class PostUpdateAPIView(RetrieveUpdateAPIView):
             "slug": "new-blog",
             "content": "this is my test blog which was updated...!!",
             "category": "Lifestyle",
-            "status": "Approved"
         }
     }
     """
     queryset = Post.objects.all()
-    serializer_class = PostCreateUpdateSerializer
+    serializer_class = PostUpdateSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
     lookup_field = 'slug'
 
@@ -204,7 +202,7 @@ class PostDraftDetailAPIView(RetrieveUpdateAPIView):
     }
     """
     queryset = Post.objects.filter(status='Draft')
-    serializer_class = PostCreateUpdateSerializer
+    serializer_class = DraftUpdateSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
     lookup_field = 'slug'
 

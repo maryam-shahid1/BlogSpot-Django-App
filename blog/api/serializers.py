@@ -10,7 +10,7 @@ from blog.models import Post
 from comments.api.serializers import CommentSerializer
 
 
-class PostCreateUpdateSerializer(ModelSerializer):
+class PostCreateSerializer(ModelSerializer):
 
     class Meta:
         model = Post
@@ -21,6 +21,16 @@ class PostCreateUpdateSerializer(ModelSerializer):
             'content',
             'category',
             'status',
+        ]
+
+
+class PostUpdateSerializer(ModelSerializer):
+
+    class Meta:
+        model = Post
+        fields = [
+            'title',
+            'content',
         ]
 
 
@@ -42,7 +52,6 @@ class PostDetailSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = [
-            'id',
             'author',
             'organisation',
             'title',
@@ -70,6 +79,18 @@ class DraftListSerializer(ModelSerializer):
         ]
 
 
+class DraftUpdateSerializer(ModelSerializer):
+
+    class Meta:
+        model = Post
+        fields = [
+            'title',
+            'slug',
+            'content',
+            'category',
+            'status',
+        ]
+
 class PendingPostListSerializer(ModelSerializer):
 
     class Meta:
@@ -94,12 +115,6 @@ class PendingPostDetailSerializer(ModelSerializer):
             'content',
             'status',
             'comments',
-        ]
-        read_only_fields = [
-            'author',
-            'category',
-            'title',
-            'content',
         ]
 
     def get_comments(self, obj):
