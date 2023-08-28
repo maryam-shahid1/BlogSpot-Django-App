@@ -3,11 +3,10 @@ This module defines serializers for the Blog and Comment models using Django
 REST framework.
 """
 
-from rest_framework.serializers import (ModelSerializer,
-                                        SerializerMethodField)
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from blog.models import Post
-from comments.api.serializers import CommentSerializer
+from comments.api.serializers import CommentSerializer, CreateCommentSerializer
 
 
 class PostCreateSerializer(ModelSerializer):
@@ -17,7 +16,6 @@ class PostCreateSerializer(ModelSerializer):
         fields = [
             'id',
             'title',
-            'slug',
             'content',
             'category',
             'status',
@@ -41,7 +39,6 @@ class PostListSerializer(ModelSerializer):
         fields = [
             'id',
             'author',
-            'organisation',
             'title',
         ]
 
@@ -55,7 +52,7 @@ class PostDetailSerializer(ModelSerializer):
             'author',
             'organisation',
             'title',
-            'slug',
+            'status',
             'content',
             'published_date',
             'comments'
@@ -74,8 +71,8 @@ class DraftListSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = [
+            'id',
             'title',
-            'status',
         ]
 
 
@@ -85,27 +82,15 @@ class DraftUpdateSerializer(ModelSerializer):
         model = Post
         fields = [
             'title',
-            'slug',
             'content',
             'category',
             'status',
         ]
 
-class PendingPostListSerializer(ModelSerializer):
-
-    class Meta:
-        model = Post
-        fields = [
-            'id',
-            'slug',
-            'author',
-            'title',
-        ]
-
 
 class PendingPostDetailSerializer(ModelSerializer):
     comments = SerializerMethodField()
-
+    new_comment = CreateCommentSerializer(write_only=True)
     class Meta:
         model = Post
         fields = [
@@ -115,9 +100,25 @@ class PendingPostDetailSerializer(ModelSerializer):
             'content',
             'status',
             'comments',
+            'new_comment'
         ]
+        read_only_fields = (
+            'author',
+            'category',
+            'title',
+            'content',
+            'comments',
+        )
 
     def get_comments(self, obj):
         comments = obj.comment_set.all()
         return CommentSerializer(comments, many=True).data
 
+
+class PendingStatusUpdate(ModelSerializer):
+
+    class Meta:
+        model = Post
+        fields = [
+            'status'
+        ]

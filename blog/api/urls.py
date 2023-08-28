@@ -10,6 +10,7 @@ from blog.api.views import DraftViewSet, PendingPostViewSet, PostViewSet
 from blog.views import blog
 
 router = DefaultRouter()
+
 router.register(r'posts', PostViewSet, basename='posts')
 router.register(r'drafts', DraftViewSet, basename='drafts')
 router.register(r'pending-posts', PendingPostViewSet, basename='pending')
