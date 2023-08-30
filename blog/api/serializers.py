@@ -7,7 +7,7 @@ from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from blog.models import Post
 from comments.api.serializers import CommentSerializer, CreateCommentSerializer
-
+from comments.models import Comment
 
 class PostCreateSerializer(ModelSerializer):
 
@@ -120,5 +120,5 @@ class PendingStatusUpdate(ModelSerializer):
     class Meta:
         model = Post
         fields = [
-            'status'
+            'status',
         ]

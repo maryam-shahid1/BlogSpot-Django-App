@@ -1,6 +1,7 @@
 """
 This module contains PostViewSet, DraftViewSet and PendingPostViewSet.
 """
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
@@ -19,6 +20,8 @@ from blog.api.serializers import (DraftListSerializer, DraftUpdateSerializer,
                                   PendingStatusUpdate)
 
 from blog.models import Post
+from comments.models import Comment
+from comments.api.serializers import CreateCommentSerializer, CommentSerializer
 
 
 class PostViewSet(ModelViewSet):
@@ -151,8 +154,27 @@ class PendingPostViewSet(ModelViewSet):
         if self.action == 'list':
             return PostListSerializer
         elif self.action == 'partial_update':
-            return PendingStatusUpdate
+            return PendingPostDetailSerializer
         elif self.action == 'retrieve':
             return PostDetailSerializer
+        # elif self.action == 'partial_update':
+        #     return PendingPostDetailSerializer
         return PendingPostDetailSerializer
+    
+    def partial_update(self, request, *args, **kwargs):
+        post = self.get_object()
+        serializer = self.get_serializer(
+            post, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            # Updating the status of the Post
+            post.status = serializer.validated_data.get(
+                'status', post.status)
+            post.save()
+            # Creating a new comment and associate it with the Post
+            new_comment_data = serializer.validated_data.get('new_comment')
+            if new_comment_data:
+                Comment.objects.create(post=post, user=request.user, **new_comment_data)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

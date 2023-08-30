@@ -73,7 +73,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     request_status = models.CharField(
         max_length=100,
-        choices=RequestStatusChoices
+        choices=RequestStatusChoices,
+        default='Pending'
     )
     role = models.CharField(
         max_length=100,
