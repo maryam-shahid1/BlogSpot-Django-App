@@ -5,10 +5,10 @@ This module contains post and comment models.
 from django.db import models
 from django.utils import timezone
 
-from user.models import Organisation, User
+from user.models import Organisation, User, TimeStampedModel
 
 
-class Post(models.Model):
+class Post(TimeStampedModel, models.Model):
     PostStatusChoices = [
         ('Draft', 'Draft'),
         ('Pending', 'Pending'),
@@ -28,8 +28,6 @@ class Post(models.Model):
         max_length=100,
         choices=PostStatusChoices,
         default='Draft')
-    published_date = models.DateTimeField(default=timezone.now())
-    slug = models.SlugField(unique=True)
     category = models.CharField(
         max_length=50,
         choices=CategoryChoices,
