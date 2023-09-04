@@ -44,12 +44,19 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class Organisation(models.Model):
+class TimeStampedModel(models.Model):
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
+
+
+class Organisation(TimeStampedModel, models.Model):
     org_name = models.CharField(max_length=100)
     website = models.URLField(max_length=200, blank=True, null=True)
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
 
     UserRoleChoices = [
         ('Admin', 'Admin'),
@@ -66,14 +73,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=20, unique=True)
-    date_joined = models.DateTimeField(default=timezone.now())
     organisation = models.ForeignKey(
         Organisation,
         on_delete=models.CASCADE
     )
     request_status = models.CharField(
         max_length=100,
-        choices=RequestStatusChoices
+        choices=RequestStatusChoices,
+        default='Pending'
     )
     role = models.CharField(
         max_length=100,
