@@ -2,16 +2,18 @@
 This module contains custom user and organisation's models.
 """
 
-from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
-                                        PermissionsMixin)
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 from django.db import models
-from django.utils import timezone
+
+from user.choices import UserRoleChoices, RequestStatusChoices
 
 
 class CustomUserManager(BaseUserManager):
-
     def create_user(self, email, password=None, **extra_fields):
-
         if not email:
             raise ValueError("Email value must be set!")
 
@@ -25,8 +27,8 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
-        extra_fields.setdefault("role", 'Admin')
-        extra_fields.setdefault("request_status", 'Accepted')
+        extra_fields.setdefault("role", "Admin")
+        extra_fields.setdefault("request_status", "Accepted")
 
         if extra_fields.get("is_staff") is not True:
             raise ValueError("Superuser must have is_staff=True.")
@@ -44,42 +46,34 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class Organisation(models.Model):
+class TimeStampedModel(models.Model):
+    created_on = models.DateTimeField(auto_now_add=True)
+    deleted_on = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        abstract = True
+
+
+class Organisation(TimeStampedModel, models.Model):
     org_name = models.CharField(max_length=100)
     website = models.URLField(max_length=200, blank=True, null=True)
 
 
-class User(AbstractBaseUser, PermissionsMixin):
-
-    UserRoleChoices = [
-        ('Admin', 'Admin'),
-        ('Author', 'Author'),
-    ]
-
-    RequestStatusChoices = [
-        ('Pending', 'Pending'),
-        ('Accepted', 'Accepted'),
-        ('Rejected', 'Rejected'),
-    ]
-
+class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
+    created_on = models.DateTimeField(null=True, blank=True, auto_now_add=True)
+    deleted_on = models.DateTimeField(null=True, blank=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=20, unique=True)
-    date_joined = models.DateTimeField(default=timezone.now())
-    organisation = models.ForeignKey(
-        Organisation,
-        on_delete=models.CASCADE
-    )
+    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     request_status = models.CharField(
         max_length=100,
-        choices=RequestStatusChoices,
-        default='Pending'
+        choices=RequestStatusChoices.choices,
+        default=RequestStatusChoices.PENDING,
     )
     role = models.CharField(
-        max_length=100,
-        choices=UserRoleChoices,
-        default='Author'
+        max_length=100, choices=UserRoleChoices.choices, default=UserRoleChoices.AUTHOR
     )
 
     is_staff = models.BooleanField(default=False)
@@ -87,6 +81,5 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
-
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["email"]
