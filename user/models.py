@@ -4,7 +4,7 @@ This module contains custom user model and manager.
 
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin)
-from django.db import models
+from djongo import models
 
 
 class CustomUserManager(BaseUserManager):
