@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content%}
+
+<head>
+  <link href="/static/blog/css/profile.css" rel="stylesheet">
+</head>
+
+<div class="card">
+  {% for message in messages %}
+  <div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span
+        aria-hidden="true">&times;</span></button>
+    <strong>Success!</strong> {{message}}
+  </div>
+
+  <script src="{% static 'blog/js/alert.js' %}"></script>
+  {% endfor %}
+  <img class="card-img-top"
+    src="https://marketplace.canva.com/EAFB2eB7C3o/1/0/1600w/canva-yellow-and-turquoise-vintage-rainbow-desktop-wallpaper-Y4mYj0d-9S8.jpg"
+    alt="Card image cap">
+
+  <div class="card-body little-profile text-center">
+
+    <div class="pro-img"><img src="https://cdn-icons-png.flaticon.com/512/666/666201.png" alt="user"></div>
+    <h3 class="m-b-0">{{first_name}} {{last_name}}</h3>
+    <p>{{organisation}}</p> <a href="javascript:void(0)" onclick=location.href="{% url 'update_profile' %}"
+      class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" data-abc="true">Edit</a>
+    <div class="row text-center m-t-20">
+      <div class="col-lg-4 col-md-4 m-t-20">
+        <h3 class="m-b-0 font-light">10434</h3><small>Articles</small>
+      </div>
+      <div class="col-lg-4 col-md-4 m-t-20">
+        <h3 class="m-b-0 font-light">434K</h3><small>Followers</small>
+      </div>
+      <div class="col-lg-4 col-md-4 m-t-20">
+        <h3 class="m-b-0 font-light">5454</h3><small>Following</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

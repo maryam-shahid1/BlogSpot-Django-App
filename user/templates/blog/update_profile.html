@@ -1,0 +1,63 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+    <strong>Success!</strong> {{message}}
+</div>
+{% endfor %}
+
+<div class="centered-div">
+    <h1>Edit Profile</h1>
+    {% for field, error in form.errors.items %}
+    <div class="alert alert-danger my-3 p-1" role="alert">
+        <strong>Failed! </strong> {{ error|striptags }}
+    </div>
+    {% endfor %}
+
+    <div class="form-input">
+        <form action="" method="post">
+            {% csrf_token %}
+            <label>First Name*</label>
+            {{form.first_name}}
+            <label>Last Name* </label>
+            {{form.last_name}}
+            <label>Email*</label>
+            {{form.email}}
+            <label>Organisation*</label>
+            {{form.organisation}}
+            <div style="display: inline;">
+                <div class="hover-container">
+                    <label>Password*</label>
+                    <div class="hover-element">
+                        &#9432;
+                        <p class="hover-text">
+                            Your password cannot be similar to your personal information.
+                            <br>
+                            Your password must contain atleast 8 charachters.
+                            <br>
+                            Your password can't be a commonly used password.
+                            <br>
+                            Your password can't be entirely numeric.
+                            <br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {{form.password1}}
+            <label>Password Confirmation*</label>
+            {{form.password2}}
+            <button type="submit">Update</button>
+            <br>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

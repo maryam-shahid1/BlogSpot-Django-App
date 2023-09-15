@@ -31,35 +31,14 @@ cd BlogSpot/
 pip install -r requirements.txt
 ```  
 
-### 5. Edit project settings  
+### 5. Add your secret key in settings.py
 ```
-AUTH_USER_MODEL = 'user.User'
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-]
-
-MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-INSTALLED_APPS = [
-    "blog.apps.BlogConfig",
-    "user.apps.UserConfig",
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-]
+SECRET_KEY = "your_key"
 ```  
 
 ### 6. Run the server  
 ```sh
-python manage.py makemigrations user
-python manage.py sqlmigrate user 0001
+python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```  
