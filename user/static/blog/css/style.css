@@ -107,33 +107,3 @@ label {
   bottom: 60px;
   color: #7e4b62;
 }
-
-.hover-container {
-  display: flex;
-}
-
-.hover-element {
-  position: relative;
-  color: rgb(193, 135, 135);
-  cursor: pointer;
-  margin-left: 355px;
-  transition: background-color 0.3s;
-}
-
-.hover-text {
-  display: none;
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  font-size: 9px;
-  transform: translateX(-50%);
-  padding: 5px;
-  background-color: rgba(229, 217, 217, 0.8);
-  color: rgb(0, 0, 0);
-  border-radius: 4px;
-  white-space: nowrap;
-}
-
-.hover-element:hover .hover-text {
-  display: block;
-}
